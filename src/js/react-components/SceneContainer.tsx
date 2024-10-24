@@ -1,11 +1,11 @@
-import {Environment, Grid, OrbitControls, PerspectiveCamera, Sky, useHelper} from "@react-three/drei";
+import {Environment, Grid, OrbitControls, PerspectiveCamera, Sky} from "@react-three/drei";
 import {useFrame} from "@react-three/fiber";
 import {useWorld} from "koota/react";
 import {schedule} from "../ecs";
 import {Ground, PropSpawner} from "./PropSpawner";
 import {jobScheduler} from "../misc/job-scheduler";
 import {useEffect, useRef} from "react";
-import {CameraHelper, DirectionalLightHelper} from "three";
+import {DirectionalLight} from "three";
 
 export function SceneContainer() {
   const world = useWorld();
@@ -36,29 +36,17 @@ export function SceneContainer() {
 
 
 function Background() {
-
-  const lightRef = useRef();
-  const shadowCameraHelperRef = useRef(null);
-
-  // Use the `useHelper` hook to visualize the light and its shadow camera
-  useHelper(lightRef, DirectionalLightHelper, 5); // Helper for the light itself
-  useHelper(shadowCameraHelperRef, CameraHelper); // Helper for the shadow camera
+  const lightRef = useRef<DirectionalLight>(null!);
 
   useEffect(() => {
-    console.log(lightRef.current);
-
-
-
-
-    // set all the left, far, ...
-    lightRef.current.shadow.camera.left = -40;
-    lightRef.current.shadow.camera.right = 40;
-    lightRef.current.shadow.camera.top = 40;
-    lightRef.current.shadow.camera.bottom = -40;
+    lightRef.current.shadow.camera.left = -60;
+    lightRef.current.shadow.camera.right = 60;
+    lightRef.current.shadow.camera.top = 60;
+    lightRef.current.shadow.camera.bottom = -60;
     lightRef.current.shadow.camera.near = 0.5;
     lightRef.current.shadow.camera.far = 100;
-
-
+    lightRef.current.shadow.mapSize.width = 1024;
+    lightRef.current.shadow.mapSize.height = 1024;
   }, []);
 
 
@@ -67,22 +55,11 @@ function Background() {
       <color attach="background" args={['#060612']}/>
 
       <directionalLight
-        color={"#ffb65e"} intensity={3} position={[20, 50, 5]}
+        color={"#ffb65e"} intensity={3} position={[20, 40, 5]}
         ref={lightRef}
         castShadow
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
-        shadow-camera-near={0.5}
-        shadow-camera-far={100}
-        shadow-camera-left={-40}
-        shadow-camera-right={40}
-        shadow-camera-top={40}
-        shadow-camera-bottom={-40}
       />
 
-      {lightRef.current && (
-        <primitive object={lightRef.current.shadow.camera} ref={shadowCameraHelperRef}/>
-      )}
 
       <Grid
         position-y={0.02}

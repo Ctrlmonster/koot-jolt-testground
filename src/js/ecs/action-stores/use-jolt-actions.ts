@@ -9,8 +9,8 @@ export const useJoltActions = createActions((world: World) => ({
 
       // this action returns a promise that could probably be combined with react-suspense for a <Physics> component
       return async () => {
-        if (calledOnce  && !world.has(JoltWorld)) return Promise.reject();
-        if (calledOnce  && world.has(JoltWorld)) return Promise.resolve();
+        if (calledOnce && !world.has(JoltWorld)) return Promise.reject();
+        if (calledOnce && world.has(JoltWorld)) return Promise.resolve();
 
         calledOnce = true;
 

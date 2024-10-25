@@ -14,12 +14,13 @@
     "@react-three/fiber": "^8.17.10",
     "directed": "github:pmndrs/directed#v0.0.1-alpha.5",
     "jolt-physics": "^0.28.0",
-    "koota": "^0.0.5",
+    "koota": "^0.1.1",
     "leva": "^0.9.31",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "three": "^0.169.0",
-    "three-stdlib": "^2.33.0"
+    "three-stdlib": "^2.33.0",
+    "vite-plugin-cross-origin-isolation": "^0.1.6"
   },
   "devDependencies": {
     "@types/react": "^18.3.11",

@@ -1,7 +1,7 @@
 import {useQuery} from "koota/react";
 import {IsRandomProp} from "../ecs/traits/is-random-prop";
 import {Entity} from "koota";
-import {useEffect, useMemo, useRef} from "react";
+import {memo, useEffect, useMemo, useRef} from "react";
 import {Mesh} from "three";
 import {MeshRef} from "../ecs/traits/mesh-ref";
 import {NeedsJoltBody} from "../ecs/traits/needs-jolt-body";
@@ -12,7 +12,7 @@ export function PropSpawner() {
 
   return (
     <group>
-      {sceneProps.map(entity =>
+      {sceneProps.map((entity: Entity) =>
         <SceneProp key={entity} entity={entity}/>)
       }
     </group>
@@ -20,13 +20,13 @@ export function PropSpawner() {
 }
 
 
-function SceneProp({entity}: { entity: Entity }) {
+const SceneProp = memo(function SceneProp({entity}: { entity: Entity }) {
   const meshRef = useRef<Mesh>(null!);
   const geometry = useMemo(() => Math.random() < 0.5 ? <boxGeometry/> : <sphereGeometry/>, [entity]);
   const color = useMemo(() => `hsl(${Math.random() * 360}, 100%, 50%)`, [entity])
 
   useEffect(() => {
-    entity.add(MeshRef({ref: meshRef.current}));
+    entity.add(MeshRef(meshRef.current));
     entity.add(NeedsJoltBody);
     return () => {
       entity.remove(MeshRef);
@@ -40,14 +40,14 @@ function SceneProp({entity}: { entity: Entity }) {
       <meshStandardMaterial color={color}/>
     </mesh>
   )
-}
+});
 
 export function Ground() {
   const meshRef = useRef<Mesh>(null!);
 
   useEffect(() => {
     const entity = world.spawn(
-      MeshRef({ref: meshRef.current}),
+      MeshRef(meshRef.current),
       NeedsJoltBody({continuousCollisionMode: true, layer: "non_moving", motionType: "static"})
     );
     return () => {

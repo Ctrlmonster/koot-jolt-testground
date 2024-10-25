@@ -15,10 +15,10 @@ export const useExampleActions = createActions((world: World) => ({
 
     // add a random impulse to the body
     const mag = 50000;
-    const {bodyInterface} = world.get(JoltWorld).ref;
+    const {bodyInterface} = world.get(JoltWorld);
 
     bodyInterface.AddImpulse(
-      entity.get(JoltBody).ref.GetID(),
+      entity.get(JoltBody).GetID(),
       new JoltWorldImpl.JOLT_NATIVE.Vec3(
         Math.random() * mag - mag / 2,
         Math.random() * mag / 2,
@@ -28,7 +28,7 @@ export const useExampleActions = createActions((world: World) => ({
 
     const mag2 = 5000;
     bodyInterface.AddAngularImpulse(
-      entity.get(JoltBody).ref.GetID(),
+      entity.get(JoltBody).GetID(),
       new JoltWorldImpl.JOLT_NATIVE.Vec3(
         Math.random() * mag2 - mag2 / 2,
         Math.random() * mag2 - mag2 / 2,
@@ -43,7 +43,7 @@ export const useExampleActions = createActions((world: World) => ({
 
     const entity = world.spawn(IsRandomProp);
 
-    // as soon as the jolt body system has done its job
+    // wait until the jolt body system has done its job
     // and added a body to the entity (this will take at least one
     // frame, but we don't know for sure)
     await sleepUntil(() => entity.has(JoltBody));

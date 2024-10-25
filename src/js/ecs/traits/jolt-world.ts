@@ -5,9 +5,7 @@ import Jolt from 'jolt-physics';
 import JoltSettings = Jolt.JoltSettings;
 
 
-export const JoltWorld = trait({
-  ref: () => new JoltWorldImpl()
-});
+export const JoltWorld = trait(() => new JoltWorldImpl());
 
 
 export const LAYER_NON_MOVING = 0;

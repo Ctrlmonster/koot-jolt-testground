@@ -5,8 +5,6 @@ import {MeshRef} from "../traits/mesh-ref";
 
 export const SyncThreeToJolt = ({world}: { world: World }) => {
   if (!world.has(JoltWorld)) return;
-  const joltWorld = world.get(JoltWorld)?.ref;
-  if (!joltWorld) return;
 
 
   // we use the low-level useStores api each (instead of updateEach) for max perf
@@ -15,8 +13,8 @@ export const SyncThreeToJolt = ({world}: { world: World }) => {
     for (const entity of entities) {
       const eIdx = entity.id();
 
-      const body = joltBody.ref[eIdx];
-      const mesh = meshRef.ref[eIdx];
+      const body = joltBody[eIdx];
+      const mesh = meshRef[eIdx];
 
       const pos = body.GetPosition();
       mesh.position.set(pos.GetX(), pos.GetY(), pos.GetZ());

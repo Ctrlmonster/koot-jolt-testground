@@ -17,16 +17,11 @@ export const BuildJoltBodies = ({world}: { world: World }) => {
   // we just store the jolt world directly on the ecs world
   if (!world.has(JoltWorld)) return;
 
-  const joltWorld = world.get(JoltWorld)?.ref;
-  if (!joltWorld) {
-    return;
-  }
-
+  const joltWorld = world.get(JoltWorld);
   const Jolt = JoltWorldImpl.JOLT_NATIVE;
 
   // query all meshes that want a jolt body
-
-  world.query(NeedsJoltBody, MeshRef).updateEach(([buildSettings, {ref: mesh}], entity) => {
+  world.query(NeedsJoltBody, MeshRef).updateEach(([buildSettings, mesh], entity) => {
     const {buildConvexShape, layer, motionType, continuousCollisionMode} = buildSettings;
 
     let shape: Jolt.Shape;
@@ -71,7 +66,7 @@ export const BuildJoltBodies = ({world}: { world: World }) => {
 
     // update the entity (remove the flag, add the body trait)
     entity.remove(NeedsJoltBody);
-    entity.add(JoltBody({ref: body}));
+    entity.add(JoltBody(body));
   });
 
 }

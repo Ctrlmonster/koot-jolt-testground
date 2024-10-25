@@ -1,11 +1,11 @@
 import {Environment, Grid, OrbitControls, PerspectiveCamera, Sky} from "@react-three/drei";
 import {useFrame} from "@react-three/fiber";
 import {useWorld} from "koota/react";
+import {useEffect, useRef} from "react";
+import {DirectionalLight} from "three";
 import {schedule} from "../ecs";
 import {Ground, PropSpawner} from "./PropSpawner";
 import {jobScheduler} from "../misc/job-scheduler";
-import {useEffect, useRef} from "react";
-import {DirectionalLight} from "three";
 
 export function SceneContainer() {
   const world = useWorld();
@@ -25,7 +25,6 @@ export function SceneContainer() {
     <>
       <Ground/>
       <PropSpawner/>
-
 
       <Background/>
       <OrbitControls dampingFactor={1}/>

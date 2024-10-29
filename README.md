@@ -1,6 +1,6 @@
 # R3F + Jolt Playground
 
-👉 Try out the [Live Demo](https://codesandbox.io/p/github/Ctrlmonster/koota-jolt-testground/main)
+👉 Check out the [Live Demo](https://codesandbox.io/p/github/Ctrlmonster/koota-jolt-testground/main)
 
 Some Notes:
 This is not a full rt/physics library, just a sketch of how the [JoltPhysics](https://github.com/jrouwe/JoltPhysics.js/) library  

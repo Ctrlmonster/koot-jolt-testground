@@ -14,7 +14,8 @@ export const useJoltActions = createActions((world: World) => ({
 
         calledOnce = true;
 
-        const joltInit = await import("jolt-physics/wasm-multithread");
+        //const joltInit = await import("jolt-physics/wasm-multithread"); // <- use this if SAB are enabled
+        const joltInit = await import("jolt-physics"); // using regular jolt for CSB
         JoltWorldImpl.JOLT_NATIVE = await joltInit.default();
 
         world.add(JoltWorld)

@@ -21,6 +21,7 @@ export function SceneContainer() {
     jobScheduler.__update(_state, delta, xrFrame);
   });
 
+
   return (
     <>
       <Ground/>
